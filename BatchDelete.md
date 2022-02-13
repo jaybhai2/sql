@@ -28,7 +28,7 @@ WHERE  tbl.id = delete_scope.id;
 
 ```
 
-### using bash script,  implement a while loop
+### using bash script,  implement a while loop https://lookonmyworks.co.uk/2020/10/08/deleting-data-in-batches/
 ```
 WITH deleted AS (
     DELETE FROM foo
