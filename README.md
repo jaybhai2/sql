@@ -119,7 +119,31 @@ function getObject(theObject, id) {
     return result;
 }
 
+
     return JSON.stringify(root);
 $$ LANGUAGE plv8 IMMUTABLE STRICT;
+
+```
+
+
+## Player with Longest Streak
+```
+select * , (rn1 - rn2) as streak_id
+from
+(
+select *, 
+row_number() over(partition by player_id order by match_date) as rn1,
+row_number() over(partition by player_id,match_result order by match_date) as rn2
+from players_results
+)t0
+order by player_id, match_date;
+
+-- -------------------
+
+or populate result change indicator, using result != lag(result) as streak_change,
+and sum the streak_change over player id partition order by date asc
+the sum will have window range of top row to current row, so when there is a streak change, sum is added up by one. when no change, it mean the result is the same as previous result, so sum stay the same. 
+this sum can serve as a streak id
+
 
 ```
